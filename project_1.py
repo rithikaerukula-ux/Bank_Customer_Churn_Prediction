@@ -23,7 +23,16 @@ print("Libraries imported successfully.")
 from google.colab import files
 from io import BytesIO
 
-uploaded = files.upload()
+uploaded = st.files.upload( "Upload your customer churn CSV file",
+    type=["csv"]
+)
+if uploaded_file is not None:
+    df = pd.read_csv(uploaded_file)
+    st.success("Dataset uploaded successfully!")
+    st.dataframe(df.head())
+else:
+    st.info("Please upload your customer churn CSV file to continue.")
+    st.stop()
 
 # Select the uploaded CSV file
 csv_files = [name for name in uploaded.keys() if name.lower().endswith(".csv")]
