@@ -20,8 +20,18 @@ pd.set_option("display.width", 120)
 
 print("Libraries imported successfully.")
 
-from google.colab import files
-from io import BytesIO
+uploaded_file = st.file_uploader(
+    "Upload your customer churn CSV file",
+    type=["csv"]
+)
+
+if uploaded_file is not None:
+    df = pd.read_csv(uploaded_file)
+    st.success("Dataset uploaded successfully!")
+    st.dataframe(df.head())
+else:
+    st.info("Please upload your customer churn CSV file.")
+    st.stop()
 
 uploaded = st.files.upload( "Upload your customer churn CSV file",
     type=["csv"]
